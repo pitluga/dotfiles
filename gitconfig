@@ -5,6 +5,7 @@
   co = checkout
   st = status
   br = branch
+  staged = diff --staged
 [core]
   excludesfile = ~/.gitignore
 [user]
