@@ -36,3 +36,5 @@ export PROMPT='%{$fg_bold[green]%}%n@%m:%{$fg_bold[blue]%}%~%{$fg_bold[green]%}$
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
 [[ -s /usr/local/opt/nvm/nvm.sh ]] && source /usr/local/opt/nvm/nvm.sh
+
+[[ -s ${HOME}/.dotfiles/promptline.sh ]] && source ${HOME}/.dotfiles/promptline.sh
