@@ -11,3 +11,5 @@
 [user]
   name = Tony Pitluga
   email = tony.pitluga@gmail.com
+[push]
+	default = simple
