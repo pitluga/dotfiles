@@ -31,6 +31,8 @@ git_prompt_info() {
   echo " (${user}@${ref#refs/heads/})"
 }
 
+eval $(docker-machine env)
+
 export PROMPT='%{$fg_bold[green]%}%n@%m:%{$fg_bold[blue]%}%~%{$fg_bold[green]%}$(git_prompt_info)%{$reset_color%}%(!.#.$) '
 
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
