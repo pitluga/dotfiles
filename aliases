@@ -1,0 +1,1 @@
+alias dbdo="bundle exec rake db:do_over"
