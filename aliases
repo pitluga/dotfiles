@@ -1,1 +1,2 @@
 alias dbdo="bundle exec rake db:do_over"
+alias weather="curl -4 http://wttr\.in"
