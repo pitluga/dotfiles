@@ -6,6 +6,7 @@
   st = status
   br = branch
   staged = diff --staged
+  pile = stash --include-untracked
 [core]
   excludesfile = ~/.gitignore
 [user]
