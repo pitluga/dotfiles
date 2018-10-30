@@ -27,9 +27,7 @@ if [ -f /usr/libexec/java_home ]; then
   export JAVA_HOME=$(/usr/libexec/java_home)
 fi
 
-if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
-
-[[ -s /usr/local/opt/nvm/nvm.sh ]] && source /usr/local/opt/nvm/nvm.sh
+[[ -s /usr/local/opt/asdf/asdf.sh ]] && source /usr/local/opt/asdf/asdf.sh
 
 [[ -s ${HOME}/.dotfiles/promptline.sh ]] && source ${HOME}/.dotfiles/promptline.sh
 
