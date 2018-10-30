@@ -34,3 +34,7 @@ if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 [[ -s ${HOME}/.dotfiles/promptline.sh ]] && source ${HOME}/.dotfiles/promptline.sh
 
 [[ -s ${HOME}/.aliases ]] && source ${HOME}/.aliases
+
+[[ -s ${HOME}/.zsh_local ]] && source ${HOME}/.zsh_local
+
+typeset -U PATH
