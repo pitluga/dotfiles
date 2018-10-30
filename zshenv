@@ -15,11 +15,13 @@ export CLICOLOR=1
 export LSCOLORS=ExFxCxDxBxegedabagacad
 export EDITOR='vim'
 export GREP_OPTIONS='--color=auto'
-export GOPATH=$HOME/go
-export NVM_DIR=$HOME/.nvm
+export GOPATH=${HOME}/go
+export NVM_DIR=${HOME}/.nvm
 export GPG_TTY=$(tty)
 
-export PATH=/usr/local/bin:/usr/local/sbin:/usr/local/heroku/bin:~/.cabal/bin:$HOME/bin:$GOPATH/bin:$PATH
+export PATH=/usr/local/heroku/bin:${PATH}
+export PATH=${HOME}/bin:${PATH}
+export PATH=${GOPATH}/bin:${PATH}
 
 if [ -f /usr/libexec/java_home ]; then
   export JAVA_HOME=$(/usr/libexec/java_home)
