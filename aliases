@@ -1,3 +1,9 @@
 alias dbdo="bundle exec rake db:do_over"
 alias weather="curl -4 http://wttr\.in"
 alias vim=nvim
+
+function ressh {
+  for f in `find /tmp/ssh-* -name '*agent*'`; do
+    export SSH_AUTH_SOCK=${f}
+  done
+}
