@@ -1,9 +1,26 @@
 alias dbdo="bundle exec rake db:do_over"
 alias weather="curl -4 http://wttr\.in"
-alias vim=nvim
+alias vim="env PATH=${PWD}/envs/default/bin:${PATH} nvim"
+alias remountq="fusermount -u /q; sshfs -o 'reconnect,ServerAliveInterval=15' q.aq.tc:/q /q"
 
 function ressh {
   for f in `find /tmp/ssh-* -name '*agent*'`; do
     export SSH_AUTH_SOCK=${f}
   done
+}
+
+function alias_pytest {
+  if [ -x .venv/bin/python ]; then
+    .venv/bin/python -m pytest $*
+  else
+    if [ -x envs/default/bin/python ]; then
+      envs/default/bin/python -m pytest $*
+    else
+      python -m pytest $*
+    fi
+  fi
+}
+
+function pretty_csv {
+  column -t -s, -n "$@" | less -F -S -X -K
 }
