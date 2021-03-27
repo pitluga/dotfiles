@@ -1,7 +1,5 @@
 alias dbdo="bundle exec rake db:do_over"
 alias weather="curl -4 http://wttr\.in"
-alias vim="env PATH=${PWD}/envs/default/bin:${PATH} nvim"
-alias remountq="fusermount -u /q; sshfs -o 'reconnect,ServerAliveInterval=15' q.aq.tc:/q /q"
 
 function ressh {
   for f in `find /tmp/ssh-* -name '*agent*'`; do
