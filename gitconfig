@@ -8,6 +8,7 @@
   staged = diff --staged
   pile = stash --include-untracked
   absent-remotes = for-each-ref --format '%(refname:short) %(upstream:track)' refs/heads
+  brs = !git branch --sort=-committerdate --format='%(refname:short)' | fzf --bind 'ctrl-n:down,ctrl-p:up' | xargs git checkout
 [core]
   excludesfile = ~/.gitignore
 [user]
@@ -20,3 +21,5 @@
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
+[init]
+	defaultBranch = main

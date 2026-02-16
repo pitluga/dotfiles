@@ -2,3 +2,6 @@
 *.swp
 all/vimperator/info
 
+claude/*
+!claude/settings.json
+!claude/hooks

@@ -1,6 +1,8 @@
 alias dbdo="bundle exec rake db:do_over"
 alias weather="curl -4 http://wttr\.in"
 alias watch="CLICOLOR_FORCE=1 watch --color"
+alias ni=pnpm
+alias nr=pnpx
 
 function ressh {
   for f in `find /tmp/ssh-* -name '*agent*'`; do

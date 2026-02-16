@@ -47,9 +47,8 @@ if [ -f '/Users/tonypitluga/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/ton
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/tonypitluga/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/tonypitluga/google-cloud-sdk/completion.zsh.inc'; fi
-export PATH="/opt/homebrew/opt/postgresql@15/bin:$PATH"
 export PATH="/opt/homebrew/bin:$PATH"
-export PATH="/opt/homebrew/opt/postgresql@16/bin:$PATH"
+export PATH="/opt/homebrew/opt/postgresql@17/bin:$PATH"
 
 # pnpm
 export PNPM_HOME="/Users/tonypitluga/Library/pnpm"
@@ -58,3 +57,11 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
+
+# opencode
+export PATH=/Users/tonypitluga/.opencode/bin:$PATH
+export PATH="$HOME/.local/bin:${PATH}"
+
+# peon-ping quick controls
+alias peon="bash ~/.claude/hooks/peon-ping/peon.sh"
+[ -f ~/.claude/hooks/peon-ping/completions.bash ] && source ~/.claude/hooks/peon-ping/completions.bash
