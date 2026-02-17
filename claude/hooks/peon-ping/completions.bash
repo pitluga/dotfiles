@@ -25,7 +25,7 @@ _peon_completions() {
   return 0
 }
 
-complete -F _peon_completions peon
+# complete -F _peon_completions peon
 
 # zsh compatibility: if running under zsh, enable bashcompinit
 if [ -n "$ZSH_VERSION" ]; then

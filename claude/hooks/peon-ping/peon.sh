@@ -54,11 +54,18 @@ send_notification() {
   local msg="$1" title="$2" color="${3:-red}"
   case "$PLATFORM" in
     mac)
-      nohup osascript - "$msg" "$title" >/dev/null 2>&1 <<'APPLESCRIPT' &
+      if command -v terminal-notifier &>/dev/null && [ -n "${TMUX_PANE:-}" ]; then
+        local click_cmd="open -a Ghostty; tmux select-window -t '${TMUX_PANE}'; tmux select-pane -t '${TMUX_PANE}'"
+        nohup terminal-notifier -message "$msg" -title "$title" \
+          -execute "$click_cmd" \
+          -sender com.mitchellh.ghostty >/dev/null 2>&1 &
+      else
+        nohup osascript - "$msg" "$title" >/dev/null 2>&1 <<'APPLESCRIPT' &
 on run argv
   display notification (item 1 of argv) with title (item 2 of argv)
 end run
 APPLESCRIPT
+      fi
       ;;
     wsl)
       # Map color name to RGB
@@ -432,29 +439,29 @@ print('SOUND_FILE=' + q(sound_file))
 [ "${PEON_EXIT:-true}" = "true" ] && exit 0
 
 # --- Check for updates (SessionStart only, once per day, non-blocking) ---
-if [ "$EVENT" = "SessionStart" ]; then
-  (
-    CHECK_FILE="$PEON_DIR/.last_update_check"
-    NOW=$(date +%s)
-    LAST_CHECK=0
-    [ -f "$CHECK_FILE" ] && LAST_CHECK=$(cat "$CHECK_FILE" 2>/dev/null || echo 0)
-    ELAPSED=$((NOW - LAST_CHECK))
-    # Only check once per day (86400 seconds)
-    if [ "$ELAPSED" -gt 86400 ]; then
-      echo "$NOW" > "$CHECK_FILE"
-      LOCAL_VERSION=""
-      [ -f "$PEON_DIR/VERSION" ] && LOCAL_VERSION=$(cat "$PEON_DIR/VERSION" | tr -d '[:space:]')
-      REMOTE_VERSION=$(curl -fsSL --connect-timeout 3 --max-time 5 \
-        "https://raw.githubusercontent.com/tonyyont/peon-ping/main/VERSION" 2>/dev/null | tr -d '[:space:]')
-      if [ -n "$REMOTE_VERSION" ] && [ -n "$LOCAL_VERSION" ] && [ "$REMOTE_VERSION" != "$LOCAL_VERSION" ]; then
-        # Write update notice to a file so we can display it
-        echo "$REMOTE_VERSION" > "$PEON_DIR/.update_available"
-      else
-        rm -f "$PEON_DIR/.update_available"
-      fi
-    fi
-  ) &>/dev/null &
-fi
+# if [ "$EVENT" = "SessionStart" ]; then
+#   (
+#     CHECK_FILE="$PEON_DIR/.last_update_check"
+#     NOW=$(date +%s)
+#     LAST_CHECK=0
+#     [ -f "$CHECK_FILE" ] && LAST_CHECK=$(cat "$CHECK_FILE" 2>/dev/null || echo 0)
+#     ELAPSED=$((NOW - LAST_CHECK))
+#     # Only check once per day (86400 seconds)
+#     if [ "$ELAPSED" -gt 86400 ]; then
+#       echo "$NOW" > "$CHECK_FILE"
+#       LOCAL_VERSION=""
+#       [ -f "$PEON_DIR/VERSION" ] && LOCAL_VERSION=$(cat "$PEON_DIR/VERSION" | tr -d '[:space:]')
+#       REMOTE_VERSION=$(curl -fsSL --connect-timeout 3 --max-time 5 \
+#         "https://raw.githubusercontent.com/tonyyont/peon-ping/main/VERSION" 2>/dev/null | tr -d '[:space:]')
+#       if [ -n "$REMOTE_VERSION" ] && [ -n "$LOCAL_VERSION" ] && [ "$REMOTE_VERSION" != "$LOCAL_VERSION" ]; then
+#         # Write update notice to a file so we can display it
+#         echo "$REMOTE_VERSION" > "$PEON_DIR/.update_available"
+#       else
+#         rm -f "$PEON_DIR/.update_available"
+#       fi
+#     fi
+#   ) &>/dev/null &
+# fi
 
 # --- Show update notice (if available, on SessionStart only) ---
 if [ "$EVENT" = "SessionStart" ] && [ -f "$PEON_DIR/.update_available" ]; then
