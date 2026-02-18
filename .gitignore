@@ -5,4 +5,7 @@ all/vimperator/info
 claude/*
 !claude/settings.json
 !claude/hooks
+claude/hooks/peon-ping/.state.json
+claude/hooks/peon-ping/.last_update_check
+claude/hooks/peon-ping/.update_available
 !claude/skills
